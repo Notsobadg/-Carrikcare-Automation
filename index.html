@@ -1,0 +1,305 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Carrikcare</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF3F1;--card:#fff;--ink:#14302F;--mut:#5d7472;--line:#d5e2df;--pri:#1B6F68;--pri2:#bfe3df;--warn:#B8740F;--warnbg:#fbeed5;--bad:#B3392F;--badbg:#f8ddd9;--ok:#2b7a4b;--okbg:#dcf0e3;--map:#e3ede9;--water:#c3dde3;--road:#fff;--park:#cfe6d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1d1c;--card:#172a29;--ink:#e6f1ef;--mut:#9ab3b0;--line:#2a4240;--pri:#4fc0b5;--pri2:#2c5753;--warn:#f0b050;--warnbg:#3a2e14;--bad:#f08a80;--badbg:#3d1f1c;--ok:#6fd195;--okbg:#1a3a2a;--map:#1a2e2c;--water:#20444a;--road:#2c4745;--park:#1d3a30}}
+:root[data-theme="dark"]{--bg:#0f1d1c;--card:#172a29;--ink:#e6f1ef;--mut:#9ab3b0;--line:#2a4240;--pri:#4fc0b5;--pri2:#2c5753;--warn:#f0b050;--warnbg:#3a2e14;--bad:#f08a80;--badbg:#3d1f1c;--ok:#6fd195;--okbg:#1a3a2a;--map:#1a2e2c;--water:#20444a;--road:#2c4745;--park:#1d3a30}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0 auto;max-width:560px;background:var(--bg);color:var(--ink);font:15px/1.4 Figtree,system-ui,sans-serif;padding:0 14px 90px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);display:flex;justify-content:space-between;align-items:center;padding:12px 0;z-index:5}
+.brand{font:700 21px 'Bricolage Grotesque',sans-serif;color:var(--pri)}
+#seg{display:flex;background:var(--line);border-radius:10px;padding:3px}
+#seg button{border:0;background:none;color:var(--mut);padding:6px 12px;border-radius:8px;font:600 13px inherit;font-family:inherit}
+#seg button.on{background:var(--card);color:var(--ink)}
+h2{font:700 24px 'Bricolage Grotesque',sans-serif;margin:6px 0 10px}
+h3{font:600 16px 'Bricolage Grotesque',sans-serif;margin:20px 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+small{display:block;color:var(--mut);font-size:13px}
+.chip{font-style:normal;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap;background:var(--line);color:var(--mut)}
+.chip.ok,.chip.accepted{background:var(--okbg);color:var(--ok)}
+.chip.offered{background:var(--warnbg);color:var(--warn)}
+.chip.bad,.chip.declined{background:var(--badbg);color:var(--bad)}
+button{font-family:inherit;cursor:pointer}
+.btn{background:var(--pri);color:var(--bg);border:0;border-radius:10px;padding:10px 16px;font-weight:600;font-size:14px;margin-top:12px}
+.ghost,.mini{background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:600;font-size:13px}
+.mini{padding:5px 9px;font-size:12px}
+.acts{display:flex;gap:8px;margin-top:10px}.acts .btn{margin-top:0}
+label{display:block;font-size:13px;color:var(--mut);margin-top:10px}
+select,input,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;margin-top:4px}
+summary{font-weight:600;cursor:pointer}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav button{flex:1;border:0;background:none;color:var(--mut);padding:13px 2px;font-size:11.5px;font-weight:600}
+nav button.on{color:var(--pri);box-shadow:inset 0 3px 0 var(--pri)}
+.banner{border-radius:12px;padding:11px 14px;font-weight:600;margin-bottom:12px}
+.banner.warn{background:var(--warnbg);color:var(--warn)}.banner.okb{background:var(--okbg);color:var(--ok)}
+.cert{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding:8px 0;margin-top:8px}
+.cert>span{flex:1}
+.map{width:100%;height:auto;border-radius:12px;display:block;margin:10px 0}
+.lbl{font:600 10px Figtree,sans-serif;fill:var(--ink);stroke:var(--map);stroke-width:3px;paint-order:stroke}
+.ax{font:9px Figtree,sans-serif;fill:var(--mut)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpis .card{margin:0;padding:10px}.kpis b{font:700 18px 'Bricolage Grotesque',sans-serif;display:block}
+.bar{height:7px;background:var(--line);border-radius:9px;margin:6px 0}.bar i{display:block;height:100%;background:var(--pri);border-radius:9px}
+.leg{display:flex;gap:14px;font-size:12px;color:var(--mut);flex-wrap:wrap}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+#toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;max-width:90%;z-index:9}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+.chip.verified{background:var(--okbg);color:var(--ok)}.chip.live{background:var(--pri2);color:var(--pri)}.chip.signoff{background:var(--warnbg);color:var(--warn)}
+canvas{width:100%;height:130px;border:1px dashed var(--mut);border-radius:10px;background:#fff;touch-action:none;display:block;margin-top:6px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
+</style><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script></head><body>
+<header><span class="brand">Carrikcare</span><div id="seg"></div></header>
+<main id="main"></main><nav id="tabs"></nav><div id="toast"></div>
+<script>
+const CUR='£',$=s=>document.querySelector(s);
+const TODAY=new Date();TODAY.setHours(0,0,0,0);
+const D=n=>{const d=new Date(TODAY);d.setDate(d.getDate()+n);return d};
+const fmt=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+const days=d=>Math.round((d-TODAY)/864e5);
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const money=x=>CUR+Math.round(x).toLocaleString('en-GB');
+const km=(a,b)=>{const r=x=>x*Math.PI/180,p=Math.sin(r(b.lat-a.lat)/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(r(b.lng-a.lng)/2)**2;return 12742*Math.asin(Math.sqrt(p))};
+const CERTS=['Background check','Manual handling','Basic life support','Medication competency'];
+const TIMES={'Day 08:00–20:00':12,'Morning 08:00–14:00':6,'Afternoon 14:00–20:00':6,'Night 20:00–08:00':12,'Night 20:00–10:00':14};
+const LBL={open:'Open',offered:'Awaiting reply',accepted:'Accepted',declined:'Declined',live:'On shift',signoff:'Needs home sign-off',verified:'Verified'};
+const so=s=>s.sig?'verified':s.out?'signoff':s.in?'live':s.st;
+const tm=ms=>new Date(ms).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+const hrs=s=>{const e=(s.out-s.in)/36e5;return e>=1?Math.round(e*4)/4:TIMES[s.t]};
+const CRIT=['Clinical knowledge','Attitude','Timekeeping','Relationship with colleagues','Relationships with service users','Communication skills'];
+const RATE=['Excellent','Good','Satisfactory','Poor'];
+let gps='sim-on',drew=false;
+const bill=r=>r=='Nurse'?38:24;
+const S=[{n:'Maple Court, Belfast',lat:54.597,lng:-5.930},{n:'Riverside Lodge, Lisburn',lat:54.512,lng:-6.046},{n:'Hollins House, Ballymena',lat:54.864,lng:-6.281},{n:"St Anne's Home, Newry",lat:54.176,lng:-6.339},{n:'Oakfield Care, Derry',lat:54.996,lng:-7.309},{n:'Knockagh Rise, Carrickfergus',lat:54.715,lng:-5.806}];
+const W=[
+{id:1,n:'Amara Okafor',role:'Nurse',lat:54.60,lng:-5.90,pay:26,rating:4.9,ot:98,c:[200,40,120,15]},
+{id:2,n:'Daniel Reyes',role:'Nurse',lat:54.52,lng:-6.05,pay:25,rating:4.7,ot:95,c:[300,90,150,220]},
+{id:3,n:'Grace Mensah',role:'Nurse',lat:54.72,lng:-6.22,pay:27,rating:4.8,ot:97,c:[45,250,300,365]},
+{id:4,n:'Tunde Bello',role:'HCA',lat:54.18,lng:-6.34,pay:15,rating:4.6,ot:91,c:[180,25,260,100]},
+{id:5,n:'Priya Nair',role:'HCA',lat:54.99,lng:-7.31,pay:15,rating:4.9,ot:99,c:[-12,200,330,140]},
+{id:6,n:'Liam Walsh',role:'HCA',lat:54.66,lng:-5.67,pay:14,rating:4.3,ot:88,c:[260,300,null,50]},
+{id:7,n:'Sofia Costa',role:'HCA',lat:55.13,lng:-6.66,pay:15,rating:4.5,ot:93,c:[330,10,200,180]}];
+let sd=7;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;
+W.forEach(w=>{w.c=w.c.map(x=>x==null?null:D(x));w.h=[];for(let i=0;i<56;i++){w.h.push(rnd()<(w.role=='Nurse'?.55:.65)?(rnd()<.5?6:12):0)}});
+const SH=[
+{id:1,site:0,role:'Nurse',date:D(1),t:'Day 08:00–20:00',w:1,st:'accepted'},
+{id:2,site:1,role:'HCA',date:D(2),t:'Morning 08:00–14:00',w:4,st:'offered'},
+{id:3,site:2,role:'HCA',date:D(3),t:'Night 20:00–08:00',w:null,st:'open'},
+{id:4,site:3,role:'Nurse',date:D(2),t:'Night 20:00–08:00',w:2,st:'offered'}];
+const TPL=[{id:1,site:0,role:'Nurse',t:'Day 08:00–20:00'},{id:2,site:1,role:'HCA',t:'Morning 08:00–14:00'},{id:3,site:2,role:'HCA',t:'Night 20:00–08:00'},{id:4,site:5,role:'HCA',t:'Afternoon 14:00–20:00'}];
+const TOWNS=[['Belfast',54.597,-5.930],['Lisburn',54.512,-6.046],['Newry',54.176,-6.339],['Derry/Londonderry',54.996,-7.309],['Ballymena',54.864,-6.281],['Bangor',54.660,-5.668],['Carrickfergus',54.715,-5.806],['Antrim',54.719,-6.217],['Coleraine',55.133,-6.667],['Omagh',54.598,-7.299],['Enniskillen',54.344,-7.634],['Armagh',54.350,-6.653],['Craigavon',54.447,-6.387],['Newtownards',54.591,-5.696],['Larne',54.858,-5.823],['Dungannon',54.504,-6.767],['Strabane',54.827,-7.463],['Downpatrick',54.328,-5.716],['Cookstown',54.642,-6.745],['Ballymoney',55.071,-6.511]];
+const CO={n:'Carrik Care LTD',reg:'NI 632469',addr:'',tel:'07706748150',em:'timesheets@carrik.care',pay:'',vat:0,terms:14,logo:null,lr:1},INVS=[];
+let nid=100;
+const rt=s=>{const r=S[s.site].r;return r?r[s.role]:bill(s.role)};
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtY=d=>fmt(d)+' '+d.getFullYear();
+const m2=x=>CUR+x.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+let st={qd:iso(D(1)),v:'agency',tab:'shifts',sel:null,me:2,open:null,form:false};
+const cs=d=>d==null?'missing':days(d)<0?'expired':days(d)<=60?'expiring':'ok';
+const csLabel=d=>d==null?'Not uploaded':days(d)<0?'Expired '+fmt(d):days(d)<=60?'Expires '+fmt(d)+' ('+days(d)+' days)':'Valid to '+fmt(d);
+const worst=w=>Math.max(...w.c.map(d=>({ok:0,expiring:1,expired:2,missing:3}[cs(d)])));
+const eligible=(w,role,date)=>w.role==role&&w.c.every(d=>d&&d>=date);
+const issues=()=>W.reduce((n,w)=>n+w.c.filter(d=>cs(d)!='ok').length,0);
+const wname=id=>W.find(x=>x.id==id);
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2600)}
+function go(v){st.v=v;st.tab=v=='agency'?'shifts':'offers';st.open=null;st.sel=null;st.sign=null;render()}
+function tab(t){st.tab=t;st.sel=null;render()}
+function render(){
+ const a=st.v=='agency',n=issues();
+ $('#seg').innerHTML=['agency','worker'].map(v=>`<button class="${st.v==v?'on':''}" onclick="go('${v}')">${v=='agency'?'Agency':'Worker'}</button>`).join('');
+ const tabs=a?[['shifts','Shifts'],['team','Onboarding'+(n?' ('+n+')':'')],['map','Map'],['stats','Insights'],['inv','Invoices']]:[];
+ $('#tabs').innerHTML=tabs.map(([k,l])=>`<button class="${st.tab==k?'on':''}" onclick="tab('${k}')">${l}</button>`).join('');
+ $('#tabs').style.display=a?'flex':'none';
+ $('#main').innerHTML=({shifts:shiftsV,team:teamV,map:mapV,stats:statsV,inv:invV,offers:offersV})[st.tab]();
+ if(st.tab=='shifts')updW();if(st.sign)initSig();
+}
+/* ---- shifts ---- */
+function shiftsV(){
+ const list=SH.slice().sort((a,b)=>a.date-b.date).map(s=>{const si=S[s.site],w=wname(s.w);
+ return `<div class="card"><div class="row"><div><b>${si.n}</b><small>${s.role} · ${fmt(s.date)} · ${s.t}</small></div><i class="chip ${so(s)}">${LBL[so(s)]}</i></div>
+ <small>${w?w.n+' · '+km(w,si).toFixed(1)+' km away':'No one assigned yet'}${s.in?' · in '+tm(s.in)+' ('+Math.round(s.inM)+' m from site)':''}${s.out?' · out '+tm(s.out):''}${s.sig?' · signed by '+s.rep:''}</small>${s.fails?`<small style="color:var(--bad)">${s.fails} clock attempt(s) rejected: worker not at the site</small>`:''}
+ ${s.st=='open'?`<div class="acts"><button class="ghost" onclick="best(${s.id})">Send to best match</button></div>`:''}
+ ${s.st=='declined'?`<div class="acts"><button class="ghost" onclick="reopen(${s.id})">Reopen shift</button></div>`:''}</div>`}).join('');
+ return `<h2>Shifts</h2>${quickV()}<details class="card" ${st.form?'open':''} ontoggle="st.form=this.open"><summary>New shift</summary>
+ <label>Site<select id="fs" onchange="updW()">${S.map((s,i)=>`<option value="${i}">${s.n}</option>`).join('')}</select></label>
+ <label>Role<select id="fr" onchange="updW()"><option>Nurse</option><option>HCA</option></select></label>
+ <label>Date<input type="date" id="fd" value="${iso(D(1))}" min="${iso(D(0))}" onchange="updW()"></label>
+ <label>Time<select id="ft">${Object.keys(TIMES).map(k=>`<option>${k}</option>`).join('')}</select></label>
+ <label>Send to<select id="fw"></select></label>
+ <div class="acts"><button class="btn" onclick="sendShift()">Send shift</button><button class="ghost" onclick="saveTpl()">Save as template</button></div></details>${list}`;
+}
+function updW(){const f=$('#fw');if(!f)return;const si=S[+$('#fs').value],r=$('#fr').value,d=new Date($('#fd').value+'T00:00');
+ f.innerHTML='<option value="">Leave open</option>'+W.filter(w=>w.role==r).sort((a,b)=>km(a,si)-km(b,si)).map(w=>{const ok=eligible(w,r,d);return `<option value="${w.id}" ${ok?'':'disabled'}>${w.n} · ${km(w,si).toFixed(1)} km${ok?'':' · certificate issue'}</option>`}).join('')}
+function sendShift(){const w=$('#fw').value,d=new Date($('#fd').value+'T00:00');if(isNaN(d))return toast('Pick a date');
+ SH.push({id:Date.now(),site:+$('#fs').value,role:$('#fr').value,date:d,t:$('#ft').value,w:w?+w:null,st:w?'offered':'open'});
+ st.form=false;toast(w?'Shift sent to '+wname(+w).n:'Shift saved as open');render()}
+function assign(s){const si=S[s.site];
+ const el=W.filter(w=>eligible(w,s.role,s.date)&&!(s.no||[]).includes(w.id)&&!SH.some(x=>x!==s&&x.w==w.id&&+x.date==+s.date&&(x.st=='offered'||x.st=='accepted'))).sort((a,b)=>km(a,si)-km(b,si));
+ if(!el.length)return null;s.w=el[0].id;s.st='offered';return el[0]}
+function best(id){const w=assign(SH.find(x=>x.id==id));toast(w?'Sent to '+w.n:'No compliant worker free that day. Check Onboarding.');render()}
+function mk1(q){const d=new Date(st.qd+'T00:00');if(isNaN(d))return 0;if(SH.some(x=>x.site==q.site&&x.role==q.role&&x.t==q.t&&+x.date==+d&&x.st!='declined'))return 1;
+ const s={id:nid++,site:q.site,role:q.role,date:d,t:q.t,w:null,st:'open'};SH.push(s);return assign(s)?2:3}
+function quick(id){toast(['Pick a date','Already created for that date','Sent to the nearest available worker','No compliant worker free. Saved as an open shift.'][mk1(TPL.find(x=>x.id==id))]);render()}
+function quickAll(){const c=[0,0,0,0];TPL.forEach(q=>c[mk1(q)]++);toast(c[2]+' sent, '+c[3]+' left open'+(c[1]?', '+c[1]+' already created':''));render()}
+function delTpl(id){TPL.splice(TPL.findIndex(x=>x.id==id),1);render()}
+function saveTpl(){const q={id:nid++,site:+$('#fs').value,role:$('#fr').value,t:$('#ft').value};
+ if(TPL.some(x=>x.site==q.site&&x.role==q.role&&x.t==q.t))return toast('Template already saved');TPL.push(q);toast('Template saved');render()}
+function quickV(){return `<div class="card"><div class="row"><b>Quick send</b><button class="ghost" onclick="quickAll()">Send all</button></div><label>For date<input type="date" value="${st.qd}" min="${iso(D(0))}" onchange="st.qd=this.value"></label>`+
+ (TPL.length?TPL.map(q=>`<div class="cert"><span>${S[q.site].n.split(',')[0]} · ${q.role}<small>${q.t}</small></span><button class="mini" onclick="quick(${q.id})">Send</button><button class="mini" onclick="delTpl(${q.id})" aria-label="Remove template">×</button></div>`).join(''):'<small>No templates yet.</small>')+
+ `<small style="margin-top:8px">Each goes to the nearest free worker with valid certificates. Add more with Save as template below.</small></div>`}
+function reopen(id){const s=SH.find(x=>x.id==id);s.w=null;s.st='open';render()}
+/* ---- onboarding ---- */
+function renew(id,i){wname(id).c[i]=D(365);toast('Certificate marked as renewed');render()}
+function teamV(){
+ const n=issues(),L=[...W].sort((a,b)=>worst(b)-worst(a));
+ return `<h2>Onboarding</h2>${addV()}<div class="banner ${n?'warn':'okb'}">${n?n+' certificate'+(n>1?'s':'')+' expired, expiring within 60 days or missing':'All certificates are up to date'}</div>`+
+ L.map(w=>`<div class="card"><div class="row"><div><b>${w.n}</b><small>${w.role}</small></div><button class="ghost" onclick="toast('Reminder sent to ${w.n.split(' ')[0]}')">Send reminder</button></div>`+
+ CERTS.map((c,i)=>{const s=cs(w.c[i]);return `<div class="cert"><span>${c}<small>${csLabel(w.c[i])}</small></span>${s=='ok'?'<i class="chip ok">Valid</i>':`<i class="chip ${s=='expiring'?'offered':'bad'}">${s=='expiring'?'Expiring':s=='expired'?'Expired':'Missing'}</i><button class="mini" onclick="renew(${w.id},${i})">Mark renewed</button>`}</div>`}).join('')+`</div>`).join('');
+}
+/* ---- map ---- */
+function mapSVG(P,line,fixed){
+ const Wd=340,Ht=280,la=P.map(p=>p.lat),ln=P.map(p=>p.lng);
+ let a=Math.min(...la),b=Math.max(...la),c=Math.min(...ln),d=Math.max(...ln);
+ const f=fixed?.1:.45,pa=(b-a||.01)*f,pc=(d-c||.01)*f;a-=pa;b+=pa;c-=pc;d+=pc;
+ const X=p=>(p.lng-c)/(d-c)*Wd,Y=p=>Ht-(p.lat-a)/(b-a)*Ht;
+ let o=`<svg viewBox="0 0 ${Wd} ${Ht}" class="map" role="img" aria-label="Schematic map"><rect width="${Wd}" height="${Ht}" fill="var(--map)"/><path d="M0 205C80 170 130 245 205 210S300 150 340 175" stroke="var(--water)" stroke-width="16" fill="none"/><path d="M50 0L125 280M0 95L340 125M225 0L265 280" stroke="var(--road)" stroke-width="4" fill="none"/><circle cx="270" cy="60" r="34" fill="var(--park)"/><circle cx="60" cy="235" r="26" fill="var(--park)"/>`;
+ if(line){const[p,q]=P,mx=(X(p)+X(q))/2,my=(Y(p)+Y(q))/2;o+=`<line x1="${X(p)}" y1="${Y(p)}" x2="${X(q)}" y2="${Y(q)}" stroke="var(--pri)" stroke-width="2.5" stroke-dasharray="6 4"/><text x="${mx}" y="${my-7}" text-anchor="middle" class="lbl">${km(p,q).toFixed(1)} km</text>`}
+ P.forEach(p=>{const x=X(p),y=Y(p),sel=p.key&&p.key==st.sel,lx=Math.min(Math.max(x,38),302);
+  o+=`<g ${p.click?`onclick="${p.click}" style="cursor:pointer"`:''}>`+(p.k=='s'?`<rect x="${x-10}" y="${y-10}" width="20" height="20" rx="5" fill="var(--pri)" stroke="${sel?'var(--warn)':'var(--card)'}" stroke-width="${sel?3.5:2}"/><path d="M${x} ${y-5}v10M${x-5} ${y}h10" stroke="var(--card)" stroke-width="2.5"/>`:`<circle cx="${x}" cy="${y}" r="${sel?9:7}" fill="${p.work?'var(--ok)':'var(--mut)'}" stroke="${sel?'var(--warn)':'var(--card)'}" stroke-width="${sel?3.5:2}"/>`)+`<text x="${lx}" y="${y+(p.k=='s'?24:19)}" text-anchor="middle" class="lbl">${p.label}</text></g>`});
+ return o+'</svg>';
+}
+function pick(k,id){st.sel=k+id;render()}
+function mapV(){
+ const P=[...S.map((s,i)=>({...s,k:'s',label:s.n.split(',')[0],key:'s'+i,click:`pick('s',${i})`})),...W.map(w=>({lat:w.lat,lng:w.lng,k:'w',label:w.n.split(' ')[0],key:'w'+w.id,work:w.h[55]>0,click:`pick('w',${w.id})`}))];
+ let info='<small>Tap a site or a worker to see distances.</small>';
+ if(st.sel){const k=st.sel[0],id=+st.sel.slice(1);
+  if(k=='s'){const s=S[id];info=`<b>${s.n}</b><small>${SH.filter(x=>x.site==id&&x.st!='accepted').length} unfilled shift(s). Nearest workers:</small>`+[...W].sort((x,y)=>km(x,s)-km(y,s)).slice(0,4).map(w=>`<div class="cert"><span>${w.n}<small>${w.role} · ${w.h[55]?'working today':'off today'}</small></span><b>${km(w,s).toFixed(1)} km</b></div>`).join('')}
+  else{const w=wname(id),ns=[...S].sort((x,y)=>km(w,x)-km(w,y))[0];info=`<b>${w.n}</b><small>${w.role} · ${w.h[55]?'working today':'off today'}</small><div class="cert"><span>Nearest site<small>${ns.n}</small></span><b>${km(w,ns).toFixed(1)} km</b></div>`}}
+ return `<h2>Map</h2>${mapSVG(P,false,true)}<div class="leg"><span><i class="dot" style="background:var(--pri)"></i>Care site</span><span><i class="dot" style="background:var(--ok)"></i>Working today</span><span><i class="dot" style="background:var(--mut)"></i>Off today</span></div><div class="card" style="margin-top:12px">${info}</div><small>Schematic map with demo locations.</small>`;
+}
+/* ---- insights ---- */
+function stats(k){let rev=0,cost=0,h=0;W.forEach(w=>{const x=w.h.slice(k*7,k*7+7).reduce((a,b)=>a+b,0);h+=x;rev+=x*bill(w.role);cost+=x*w.pay});return{rev,cost,h}}
+function statsV(){
+ const wk=[0,1,2,3,4,5,6,7].map(stats),T=wk.reduce((o,x)=>({rev:o.rev+x.rev,cost:o.cost+x.cost,h:o.h+x.h}),{rev:0,cost:0,h:0});
+ const m=T.rev-T.cost,ch=(wk[7].rev/wk[6].rev-1)*100,mx=Math.max(...wk.map(x=>x.rev));
+ const bars=wk.map((x,i)=>{const bw=26,g=(340-8*bw)/9,xx=g+i*(bw+g),hc=x.cost/mx*105,hm=(x.rev-x.cost)/mx*105;
+  return `<rect x="${xx}" y="${130-hc}" width="${bw}" height="${hc}" rx="3" fill="var(--pri2)"/><rect x="${xx}" y="${130-hc-hm}" width="${bw}" height="${hm}" rx="3" fill="var(--pri)"/><text x="${xx+bw/2}" y="${126-hc-hm}" text-anchor="middle" class="ax">${CUR}${(x.rev/1000).toFixed(1)}k</text><text x="${xx+bw/2}" y="145" text-anchor="middle" class="ax">${fmt(D(i*7-55))}</text>`}).join('');
+ const cw=19,lx=62;
+ let hm=Array.from({length:14},(_,c)=>`<text x="${lx+c*cw+7}" y="9" class="ax">${D(c-13).toLocaleDateString('en-GB',{weekday:'narrow'})}</text>`).join('');
+ hm+=W.map((w,r)=>`<text x="0" y="${r*20+27}" class="ax">${w.n.split(' ')[0]}</text>`+w.h.slice(42).map((v,c)=>`<rect x="${lx+c*cw}" y="${r*20+14}" width="${cw-3}" height="17" rx="3" fill="${v?'var(--pri)':'var(--line)'}" opacity="${v?(v>6?1:.5):.6}"><title>${w.n}: ${v}h</title></rect>`).join('')).join('');
+ hm+=`<text x="0" y="${W.length*20+27}" class="ax" style="font-weight:600">On shift</text>`+Array.from({length:14},(_,c)=>`<text x="${lx+c*cw+(cw-3)/2}" y="${W.length*20+27}" text-anchor="middle" class="ax" style="font-weight:600">${W.filter(w=>w.h[42+c]>0).length}</text>`).join('');
+ const P=W.map(w=>{const h=w.h.reduce((a,b)=>a+b,0);return{w,h,m:h*(bill(w.role)-w.pay)}}).sort((a,b)=>b.m-a.m);
+ return `<h2>Insights</h2><div class="kpis"><div class="card"><small>Revenue, 8 wks</small><b>${money(T.rev)}</b></div><div class="card"><small>Margin</small><b>${money(m)}</b><small>${(m/T.rev*100).toFixed(0)}% of revenue</small></div><div class="card"><small>Last week</small><b>${ch>=0?'+':''}${ch.toFixed(0)}%</b><small>revenue vs prior</small></div></div>
+ <h3>Money made each week</h3><div class="card"><svg viewBox="0 0 340 150" width="100%">${bars}</svg><div class="leg"><span><i class="dot" style="background:var(--pri)"></i>Margin</span><span><i class="dot" style="background:var(--pri2)"></i>Staff pay</span></div></div>
+ <h3>Who worked, last 14 days</h3><div class="card"><svg viewBox="0 0 340 ${W.length*20+36}" width="100%">${hm}</svg><small>Dark = 12h shift, light = 6h shift, grey = off</small></div>
+ <h3>Staff performance</h3>`+P.map(({w,h,m:mg})=>`<div class="card"><div class="row"><div><b>${w.n}</b><small>${w.role}</small></div><b>${money(mg)}</b></div><div class="bar"><i style="width:${mg/P[0].m*100}%"></i></div><small>★ ${w.rating||'new'} · on time ${w.ot?w.ot+'%':'n/a'} · ${h}h worked</small></div>`).join('');
+}
+/* ---- worker ---- */
+function resp(id,ok){const s=SH.find(x=>x.id==id);if(ok)s.st='accepted';else{s.st='declined';(s.no=s.no||[]).push(s.w)}st.open=null;toast(ok?'Shift accepted. Carrikcare has been notified.':'Shift declined');render()}
+function offersV(){
+ const me=wname(st.me),mine=SH.filter(s=>s.w==me.id),off=mine.filter(s=>s.st=='offered'),acc=mine.filter(s=>s.st=='accepted');
+ const card=(s,o)=>{const si=S[s.site],h=TIMES[s.t];
+  return `<div class="card"><div class="row"><div><b>${si.n}</b><small>${s.role} · ${fmt(s.date)} · ${s.t}</small></div><b>${money(h*me.pay)}</b></div><small>${km(me,si).toFixed(1)} km from you · ${h}h at ${CUR}${me.pay}/h</small>`+
+  (o?`<div class="acts"><button class="ghost" onclick="st.open=st.open==${s.id}?null:${s.id};render()">${st.open==s.id?'Hide details':'Review shift'}</button></div>`:'')+
+  (o&&st.open==s.id?mapSVG([{...si,k:'s',label:si.n.split(',')[0]},{lat:me.lat,lng:me.lng,k:'w',label:'You',work:true}],true)+`<div class="acts"><button class="btn" onclick="resp(${s.id},1)">Accept</button><button class="ghost" onclick="resp(${s.id},0)">Decline</button></div>`:'')+(o?'':work(s))+`</div>`};
+ return `<h2>My shifts</h2><label style="margin:0 0 12px">Viewing as<select onchange="st.me=+this.value;st.open=null;render()">${W.map(w=>`<option value="${w.id}" ${w.id==me.id?'selected':''}>${w.n} (${w.role})</option>`).join('')}</select></label>
+ <label>Location (demo)<select onchange="gps=this.value">${[['sim-on','Simulate: at the site'],['sim-off','Simulate: away from the site'],['device','Use my device location']].map(([v,l])=>`<option value="${v}" ${gps==v?'selected':''}>${l}</option>`).join('')}</select></label><h3>New offers</h3>${off.length?off.map(s=>card(s,1)).join(''):'<div class="card"><small>No new offers. Shifts sent to you by Carrikcare appear here.</small></div>'}
+ <h3>Accepted</h3>${acc.length?acc.map(s=>card(s,0)).join(''):'<div class="card"><small>Shifts you accept will be listed here.</small></div>'}`;
+}
+function locate(si){return new Promise(res=>{
+ if(gps=='sim-on')return res({lat:si.lat+.0003,lng:si.lng+.0003});
+ if(gps=='sim-off')return res({lat:si.lat+.05,lng:si.lng+.05});
+ if(!navigator.geolocation)return res(null);
+ navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lng:p.coords.longitude}),()=>res(null),{enableHighAccuracy:true,timeout:8000})})}
+async function clock(id,dir){const s=SH.find(x=>x.id==id),si=S[s.site],p=await locate(si);
+ if(!p)return toast('Location unavailable. Allow location access to clock '+dir+'.');
+ const m=km(p,si)*1000;
+ if(m>150){s.fails=(s.fails||0)+1;return toast('You are '+Math.round(m)+' m from the site. Clock '+dir+' not recorded.')}
+ if(dir=='in'){s.in=Date.now();s.inM=m}else{s.out=Date.now();s.outM=m}
+ toast('Clocked '+dir+' at '+si.n.split(',')[0]);render()}
+function work(s){
+ if(s.sig)return `<div class="banner okb" style="margin:10px 0 0">Verified by ${s.rep}. Sent to Carrikcare for invoicing.</div>`;
+ if(st.sign==s.id)return signV(s);
+ const b=(l,f)=>`<div class="acts"><button class="btn" onclick="${f}">${l}</button></div>`;
+ if(s.out)return b('Get home sign-off',`st.sign=${s.id};render()`);
+ if(s.in)return `<small style="margin-top:8px">Clocked in at ${tm(s.in)}, location verified</small>`+b('Clock out',`clock(${s.id},'out')`);
+ return b('Clock in',`clock(${s.id},'in')`)}
+function signV(s){return `<h3 style="margin-top:14px">Home sign-off</h3><small>Hand the phone to the representative at ${S[s.site].n}.</small>
+ <label>Representative name<input id="rn" placeholder="Full name"></label><div class="g2">${CRIT.map(c=>`<label>${c}<select class="as">${RATE.map(r=>`<option>${r}</option>`).join('')}</select></label>`).join('')}</div>
+ <label>Any concerns about the staff member?<select id="cn"><option value="0">No</option><option value="1">Yes</option></select></label>
+ <label>Signature</label><canvas id="sg" width="640" height="260"></canvas>
+ <div class="acts"><button class="btn" onclick="signOff(${s.id})">Confirm shift</button><button class="ghost" onclick="clearSig()">Clear</button><button class="ghost" onclick="st.sign=null;render()">Cancel</button></div>`}
+function initSig(){const c=$('#sg');if(!c)return;drew=false;const x=c.getContext('2d');x.lineWidth=4;x.lineCap='round';x.strokeStyle='#14302F';let on=false;
+ const pt=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]};
+ c.onpointerdown=e=>{on=true;c.setPointerCapture(e.pointerId);const[a,b]=pt(e);x.beginPath();x.moveTo(a,b)};
+ c.onpointermove=e=>{if(!on)return;const[a,b]=pt(e);x.lineTo(a,b);x.stroke();drew=true};
+ c.onpointerup=()=>{on=false}}
+function clearSig(){const c=$('#sg');c.getContext('2d').clearRect(0,0,c.width,c.height);drew=false}
+function signOff(id){const s=SH.find(x=>x.id==id),n=$('#rn').value.trim();
+ if(!n)return toast("Enter the representative's name");if(!drew)return toast('A signature is required');
+ s.rep=n;s.as=[...document.querySelectorAll('.as')].map(e=>e.value);s.concern=$('#cn').value=='1';s.sig=$('#sg').toDataURL('image/png');s.signedAt=Date.now();st.sign=null;toast('Shift verified and sent to Carrikcare');render()}
+const townOpts=()=>TOWNS.map((x,i)=>`<option value="${i}">${x[0]}</option>`).join('');
+function addV(){return `<details class="card" ${st.fw?'open':''} ontoggle="st.fw=this.open"><summary>Onboard a worker</summary>
+ <label>Full name<input id="wn"></label><div class="g2"><label>Role<select id="wr"><option>Nurse</option><option>HCA</option></select></label><label>Pay (${CUR}/hour)<input id="wp" type="number" min="0" value="15"></label></div>
+ <label>Home town<select id="wt">${townOpts()}</select></label><small style="margin-top:10px">Certificate expiry dates (leave blank if not yet received)</small>
+ <div class="g2">${CERTS.map(c=>`<label>${c}<input type="date" class="wc"></label>`).join('')}</div><button class="btn" onclick="addWorker()">Add worker</button></details>
+ <details class="card" ${st.fc?'open':''} ontoggle="st.fc=this.open"><summary>Onboard a client</summary>
+ <label>Home or hospital name<input id="cn1"></label><label>Town<select id="ct">${townOpts()}</select></label><label>Address<input id="ca"></label><label>Authorised signatory<input id="cs1" placeholder="Manager or senior carer"></label>
+ <div class="g2"><label>Nurse rate (${CUR}/h)<input id="cr1" type="number" min="0" value="38"></label><label>HCA rate (${CUR}/h)<input id="cr2" type="number" min="0" value="24"></label></div><button class="btn" onclick="addClient()">Add client</button></details>`}
+const jit=()=>(Math.random()-.5)*.02;
+function addWorker(){const n=$('#wn').value.trim();if(!n)return toast('Enter the worker name');const q=TOWNS[+$('#wt').value],ds=[...document.querySelectorAll('.wc')].map(e=>e.value?new Date(e.value+'T00:00'):null);
+ W.push({id:Math.max(...W.map(w=>w.id))+1,n,role:$('#wr').value,lat:q[1]+jit(),lng:q[2]+jit(),pay:+$('#wp').value||0,rating:null,ot:null,c:ds,h:Array(56).fill(0)});
+ st.fw=false;toast(n+' added. '+(ds.some(d=>!d)?'Missing certificates are flagged below.':'All certificates recorded.'));render()}
+function addClient(){const n=$('#cn1').value.trim();if(!n)return toast('Enter the client name');const q=TOWNS[+$('#ct').value];
+ S.push({n:n+', '+q[0],lat:q[1]+jit(),lng:q[2]+jit(),addr:$('#ca').value.trim(),contact:$('#cs1').value.trim(),r:{Nurse:+$('#cr1').value||0,HCA:+$('#cr2').value||0}});st.fc=false;toast(n+' added as a client');render()}
+/* ---- invoicing ---- */
+async function save(filename,data){const d=window.claude?await claude.use('downloads'):null;
+ if(!d){const l=document.createElement('a');l.href=URL.createObjectURL(data instanceof Blob?data:new Blob([data],{type:'text/csv'}));l.download=filename;document.body.appendChild(l);l.click();l.remove();return toast('File downloaded')}
+ try{await d.save({filename,data});toast('File ready')}catch(e){if(e.code!='declined')toast('Could not save the file')}}
+const slug=s=>s.split(',')[0].replace(/\W+/g,'-').toLowerCase();
+function csv(i){const R=[['Date','Site','Worker','Role','Scheduled shift','Clock in','Clock out','Hours','Rate','Amount','Authorised by','Signed at']];
+ SH.filter(s=>s.sig&&!s.inv&&s.site==i).forEach(s=>R.push([iso(s.date),S[i].n,wname(s.w).n,s.role,s.t,tm(s.in),tm(s.out),hrs(s),rt(s),hrs(s)*rt(s),s.rep,new Date(s.signedAt).toISOString()]));
+ save('carrikcare-'+slug(S[i].n)+'.csv',R.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n'))}
+const mk=d=>(t,x,y,z,b,al)=>{d.setFont('helvetica',b?'bold':'normal');d.setFontSize(z||11);d.text(String(t).replace(/–/g,'-'),x,y,al?{align:al}:undefined)};
+function hdr(d,L){const lg=CO.logo,lw=Math.min(24*(CO.lr||1),50),tx=lg?15+lw+5:44;
+ if(lg)d.addImage(CO.logo,'PNG',15,12,lw,24);else{d.setFillColor(27,111,104);d.circle(27,24,12,'F');d.setTextColor(255,255,255);L('C',22.5,31,24,1)}
+ d.setTextColor(20,48,47);L(CO.n,tx,19,16,1);d.setTextColor(95,116,114);
+ [CO.reg&&'Company reg. '+CO.reg,CO.addr,[CO.tel,CO.em].filter(Boolean).join('   |   ')].filter(Boolean).forEach((x,i)=>L(x,tx,25+i*5,9));
+ d.setTextColor(20,48,47);d.setDrawColor(200,215,212);d.line(15,46,195,46)}
+function pdf(id){const s=SH.find(x=>x.id==id),si=S[s.site],w=wname(s.w),J=window.jspdf;if(!J)return toast('PDF tool did not load');
+ const d=new J.jsPDF(),L=mk(d);hdr(d,L);L('Shift authentication',15,58,15,1);
+ [['Worker',w.n+' ('+s.role+')'],['Client site',si.n],['Date',fmtY(s.date)],['Shift',s.t],['Clock in',tm(s.in)+', '+Math.round(s.inM)+' m from site (location verified)'],['Clock out',tm(s.out)+', '+Math.round(s.outM)+' m from site (location verified)'],['Billable hours',hrs(s)],['Authorised by',s.rep+', '+new Date(s.signedAt).toLocaleString('en-GB')],['Reference','CC-'+String(s.id).slice(-6).padStart(4,'0')]].forEach((r,i)=>{L(r[0],15,70+i*8,10,1);L(r[1],62,70+i*8,10)});
+ L('Staff assessment',15,150,13,1);s.as.forEach((a,i)=>{L(CRIT[i],15,159+i*7,10);L(a,110,159+i*7,10)});
+ L('Concerns about staff: '+(s.concern?'Yes':'No'),15,205,10);L('Signature of authorised representative',15,218,10,1);d.addImage(s.sig,'PNG',15,222,70,28);
+ save('carrikcare-shift-'+iso(s.date)+'-'+w.n.split(' ')[0].toLowerCase()+'.pdf',d.output('blob'))}
+function invoicePdf(v){const J=window.jspdf;if(!J)return toast('PDF tool did not load');
+ const si=S[v.site],d=new J.jsPDF(),L=mk(d),R=v.ids.map(i=>SH.find(x=>x.id==i)),sub=R.reduce((a,s)=>a+hrs(s)*rt(s),0),vat=sub*(+CO.vat||0)/100,due=new Date(v.date);due.setDate(due.getDate()+(+CO.terms||0));
+ hdr(d,L);L('INVOICE',195,20,22,1,'right');L(v.no,195,27,11,1,'right');L('Date: '+fmtY(v.date),195,33,9,0,'right');L('Due: '+fmtY(due),195,38,9,0,'right');
+ L('Bill to',15,56,9,1);L(si.n,15,62,12,1);[si.addr,si.contact&&'Attn: '+si.contact].filter(Boolean).forEach((x,i)=>L(x,15,68+i*5,9));
+ let y=90;const hd=()=>{d.setFillColor(231,241,239);d.rect(15,y-5,180,8,'F');[['Date',17],['Worker',36],['Role',78],['Shift',94],['Hours',150,'right'],['Rate',172,'right'],['Amount',193,'right']].forEach(c=>L(c[0],c[1],y,9,1,c[2]));y+=8};hd();
+ R.forEach(s=>{if(y>265){d.addPage();y=20;hd()}const h=hrs(s),r=rt(s);[[fmt(s.date),17],[wname(s.w).n,36],[s.role,78],[s.t,94],[h,150,'right'],[m2(r),172,'right'],[m2(h*r),193,'right']].forEach(c=>L(c[0],c[1],y,9,0,c[2]));y+=7});
+ if(y>225){d.addPage();y=20}y+=4;d.line(120,y-4,195,y-4);
+ [['Subtotal',m2(sub)],['VAT ('+(+CO.vat||0)+'%)',m2(vat)],['Total due',m2(sub+vat)]].forEach((r,i)=>{L(r[0],125,y+i*7,i==2?12:10,i==2);L(r[1],193,y+i*7,i==2?12:10,i==2,'right')});
+ y+=30;const pl=CO.pay?CO.pay.split('\n'):[];if(pl.length){L('Payment details',15,y,10,1);pl.forEach((x,i)=>L(x,15,y+6+i*5,9))}
+ L('Please quote '+v.no+'. Payment due by '+fmtY(due)+'.',15,y+10+pl.length*5,9);
+ d.setTextColor(95,116,114);L('Each shift is supported by a signed shift authentication, with clock in and out verified by location.',105,287,8,0,'center');
+ save('invoice-'+v.no+'-'+slug(si.n)+'.pdf',d.output('blob'))}
+function createInv(i){const ids=SH.filter(s=>s.sig&&s.site==i&&!s.inv).map(s=>s.id);if(!ids.length)return;
+ const v={no:'INV-'+String(INVS.length+1).padStart(4,'0'),site:i,date:new Date(),ids};INVS.push(v);ids.forEach(x=>{SH.find(s=>s.id==x).inv=v.no});invoicePdf(v);render()}
+function logo(el){const f=el.files[0];if(!f)return;const r=new FileReader(),im=new Image();
+ im.onload=()=>{const k=Math.min(1,320/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);CO.logo=c.toDataURL('image/png');CO.lr=c.width/c.height;render()};
+ im.onerror=()=>toast('Could not read that image');r.onload=()=>{im.src=r.result};r.readAsDataURL(f)}
+function invV(){
+ const by={},pend=SH.filter(s=>s.in&&!s.sig).length;SH.filter(s=>s.sig&&!s.inv).forEach(s=>(by[s.site]=by[s.site]||[]).push(s));
+ const co=`<details class="card" ${st.fco?'open':''} ontoggle="st.fco=this.open"><summary>Company details and logo</summary>${[['n','Company name'],['reg','Registration number'],['addr','Address'],['tel','Phone'],['em','Email']].map(([k,l])=>`<label>${l}<input value="${esc(CO[k])}" oninput="CO.${k}=this.value"></label>`).join('')}
+ <div class="g2"><label>VAT rate (%)<input type="number" min="0" value="${esc(CO.vat)}" oninput="CO.vat=this.value"></label><label>Payment terms (days)<input type="number" min="0" value="${esc(CO.terms)}" oninput="CO.terms=this.value"></label></div>
+ <label>Payment details<textarea rows="3" oninput="CO.pay=this.value" placeholder="Bank, sort code, account number">${esc(CO.pay)}</textarea></label>
+ <label>Logo<input type="file" accept="image/*" onchange="logo(this)"></label>${CO.logo?`<img src="${CO.logo}" alt="Logo preview" style="height:48px;margin-top:8px">`:''}</details>`;
+ const gl=Object.keys(by).map(i=>{const L=by[i],tot=L.reduce((a,s)=>a+hrs(s)*rt(s),0);return `<div class="card"><div class="row"><div><b>${S[i].n}</b><small>${L.length} verified shift(s) ready to invoice</small></div><b>${money(tot)}</b></div>`+L.map(s=>`<div class="cert"><span>${wname(s.w).n}<small>${fmt(s.date)} · ${s.role} · ${hrs(s)}h · signed by ${s.rep}</small></span><button class="mini" onclick="pdf(${s.id})">Shift PDF</button></div>`).join('')+`<div class="acts"><button class="btn" onclick="createInv(${i})">Create invoice</button><button class="ghost" onclick="csv(${i})">CSV</button></div></div>`}).join('');
+ const past=INVS.slice().reverse().map(v=>`<div class="cert"><span>${v.no} · ${S[v.site].n.split(',')[0]}<small>${fmt(v.date)} · ${v.ids.length} shift(s) · ${money(v.ids.reduce((a,x)=>{const s=SH.find(y=>y.id==x);return a+hrs(s)*rt(s)},0))} before VAT</small></span><button class="mini" onclick="invoicePdf(INVS.find(x=>x.no=='${v.no}'))">Download</button></div>`).join('');
+ return `<h2>Invoices</h2>${pend?`<div class="banner warn">${pend} shift(s) waiting for home sign-off. Only verified shifts can be invoiced.</div>`:''}${co}`+(gl||'<div class="card"><small>Verified shifts appear here once the home representative has signed. To try it, open the Worker view, accept a shift, clock in, clock out and complete the home sign-off.</small></div>')+(past?`<h3>Past invoices</h3><div class="card">${past}</div>`:'');
+}
+render();
+</script></body></html>
